@@ -10,10 +10,14 @@ module.exports.tradeCreate = async (parent, args, context, info) => {
   const type = trade.tradeType
 
   // TODO: validate
-  // Buy: check if user has enough money
+  // Buy:
+  // 1. check if user has enough money
+  // 2. check if fund invested amount is less than max investable
+
   // Sell: check if user has open position
 
   const tradeDocument = await createOne(Trade, args, context);
+  console.log("LS -> src/entities/trade/mutation.js:16 -> tradeDocument: ", tradeDocument)
 
   // update position
   const quantityWithSign = ['withdraw', 'sell'].includes(type) ? -trade.quantity : trade.quantity
@@ -31,7 +35,6 @@ module.exports.tradeCreate = async (parent, args, context, info) => {
     },
     {
       upsert: true,
-      new: true
     }
   )
 
@@ -58,13 +61,11 @@ module.exports.tradeCreate = async (parent, args, context, info) => {
       },
       {
         upsert: true,
-        new: true
       }
     )
+
+    // TODO: if asset type is 'fund', add/reduce investedAmount and investableAmount
   }
-
-
-
 };
 
 module.exports.tradeUpdate = async (parent, args, context, info) => {

@@ -50,8 +50,8 @@ function populate(next) {
 PositionSchema.pre("find", populate);
 PositionSchema.pre("findOne", populate);
 
-PositionSchema.virtual('value').get(function() {
-  return this.asset.price * this.quantity
+PositionSchema.virtual('marketValue').get(function() {
+  return this.asset.lastPrice * this.quantity
 });
 
 module.exports =

@@ -12,3 +12,15 @@ module.exports.tradeGetMany = async (model, args, context) => {
   args.sort = { 'createdDate': -1 }
   return await getMany(Trade, args, context)
 };
+
+module.exports.tradeGetManyByAsset = async (model, args, context) => {
+  args.filters = { asset: args.asset }
+  args.sort = { 'createdDate': -1 }
+  return await getMany(Trade, args, context)
+};
+
+module.exports.tradeGetManyByCustomer = async (model, args, context) => {
+  args.filters = { customer: args.customer }
+  args.sort = { 'createdDate': -1 }
+  return await getMany(Trade, args, context)
+};

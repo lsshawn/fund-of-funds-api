@@ -4,6 +4,8 @@ const Trade = gql`
   extend type Query {
     tradeGet(_id: ID!): Trade
     tradeGetMany(page: Int, limit: Int): [Trade]
+    tradeGetManyByAsset(asset: String!, page: Int, limit: Int): [Trade]
+    tradeGetManyByCustomer(customer: String!, page: Int, limit: Int): [Trade]
   }
   
   extend type Mutation {

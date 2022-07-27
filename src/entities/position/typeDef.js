@@ -10,10 +10,10 @@ const Position = gql`
   type Position {
     _id: ID!
     quantity: Float
-    lastPrice: Float
+    marketValue: Float # virtual
     createdDate: GraphQLDate
     updatedDate: GraphQLDate
-    ticker: GraphQLJSON
+    asset: GraphQLJSON
     customer: GraphQLJSON
   }
 `;

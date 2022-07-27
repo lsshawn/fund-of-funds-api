@@ -32,6 +32,7 @@ module.exports.getMany = async (model, args, context) => {
     });
   }
 
+  console.log("LS -> src/helpers/queries.js:40 -> query: ", query)
   try {
     const res = await model
       .find(query)

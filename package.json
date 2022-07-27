@@ -4,7 +4,7 @@
   "description": "",
   "main": "serverless.yml",
   "scripts": {
-    "start": "sls offline --httpPort 3001"
+    "start": "sls offline --skipCacheInvalidation --httpPort 3001"
   },
   "author": "",
   "license": "ISC",
