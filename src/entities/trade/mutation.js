@@ -17,7 +17,6 @@ module.exports.tradeCreate = async (parent, args, context, info) => {
   // Sell: check if user has open position
 
   const tradeDocument = await createOne(Trade, args, context);
-  console.log("LS -> src/entities/trade/mutation.js:16 -> tradeDocument: ", tradeDocument)
 
   // update position
   const quantityWithSign = ['withdraw', 'sell'].includes(type) ? -trade.quantity : trade.quantity
