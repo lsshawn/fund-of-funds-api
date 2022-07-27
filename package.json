@@ -1,0 +1,23 @@
+{
+  "name": "securo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serverless.yml",
+  "scripts": {
+    "start": "sls offline --httpPort 3001"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-offline": "^6.9.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.4",
+    "graphql": "^14.1.1",
+    "mongoose": "^5.5.4",
+    "graphql-import": "^0.7.1",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-type-json": "^0.2.1",
+    "apollo-server-lambda": "^2.4.8"
+  }
+}

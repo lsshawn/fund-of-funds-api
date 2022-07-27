@@ -1,0 +1,32 @@
+app: securo-api
+service: securo-api
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 128
+  timeout: 30
+  lambdaHashingVersion: 20201221
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+  environment: ${file(env.yml):${self:provider.stage}}
+
+functions:
+  playground:
+    handler: src/index.handler
+    events:
+      - http:
+          path: playground
+          method: get
+
+  graphql:
+    handler: src/index.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+
