@@ -1,4 +1,5 @@
 const Trade = require("./model");
+const Position = require("../position/model");
 const {
   createOne,
   updateOne
@@ -17,9 +18,11 @@ module.exports.tradeCreate = async (parent, args, context, info) => {
   }
   // Sell: check if user has open position
 
-  return await createOne(Trade, args, context);
+  const tradeDocument = await createOne(Trade, args, context);
 
   // side effects
+  if (type === 'deposit') {
+  }
 
   // Deposit: increase user deposit & position
   // Withdraw: decrease user deposit & position

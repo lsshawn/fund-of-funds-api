@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Fund = require('../fund/model')
+const Asset = require('../asset/model')
 const Customer = require('../customer/model')
 
 const PositionSchema = new mongoose.Schema({
@@ -8,9 +8,9 @@ const PositionSchema = new mongoose.Schema({
   lastPrice: Number,
   createdDate: Date,
   lastUpdatedDate: Date,
-  fund: {
+  asset: {
     type: mongoose.Schema.ObjectId,
-    ref: "Fund",
+    ref: "Asset",
   },
   customer: {
     type: mongoose.Schema.ObjectId,
@@ -28,10 +28,10 @@ function populate(next) {
   });
 
   this.populate({
-    path: "fund",
+    path: "asset",
     select: {
       _id: 1,
-      ticker: 1,
+      asset: 1,
     },
   });
 

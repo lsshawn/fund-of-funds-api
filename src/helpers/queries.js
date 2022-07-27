@@ -22,9 +22,19 @@ module.exports.getMany = async (model, args, context) => {
   const sort = args.sort || { "_id": -1 }
   const page = args.page || 1;
 
+  let query = {}
+  const filters = args.filters;
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key];
+      if (!value || value === "null") return;
+      query[key] = Array.isArray(value) ? { $in: value } : value;
+    });
+  }
+
   try {
     const res = await model
-      .find()
+      .find(query)
       .sort(sort)
       .skip((page - 1) * limit)
       .limit(limit);

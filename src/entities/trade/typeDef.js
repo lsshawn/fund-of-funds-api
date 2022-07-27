@@ -19,7 +19,7 @@ const Trade = gql`
     quantity: Float
     price: Float
     value: Float
-    fund: GraphQLJSON
+    asset: GraphQLJSON
     createdBy: GraphQLJSON
     customer: GraphQLJSON
     createdDate: GraphQLDate

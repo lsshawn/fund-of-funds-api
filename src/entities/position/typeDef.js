@@ -14,7 +14,7 @@ const Position = gql`
     lastPrice: Float
     createdDate: GraphQLDate
     lastUpdatedDate: GraphQLDate
-    fund: GraphQLJSON
+    ticker: GraphQLJSON
     customer: GraphQLJSON
   }
 `;

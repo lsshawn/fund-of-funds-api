@@ -1,6 +1,6 @@
 const User = require("./entities/user/typeDef.js");
 const Customer = require("./entities/customer/typeDef.js");
-const Fund = require("./entities/fund/typeDef.js");
+const Asset = require("./entities/asset/typeDef.js");
 const Trade = require("./entities/trade/typeDef.js");
 const Position = require("./entities/position/typeDef.js");
 
@@ -28,7 +28,7 @@ const schemaArray = [
   Mutation,
   User,
   Customer,
-  Fund,
+  Asset,
   Trade,
   Position
 ];

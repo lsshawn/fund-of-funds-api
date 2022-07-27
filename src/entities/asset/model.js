@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 const User = require('../user/model')
 
-const FundSchema = new mongoose.Schema({
+const AssetSchema = new mongoose.Schema({
   ticker: {
     type: String,
     required: true,
     unique: true
   },
+  type: {
+    type: String,
+    enum: ['fund', 'cash'],
+    default: 'fund'
+  },
   name: String,
-  description: String,
-  manager: String,
   createdDate: {
     type: Date,
     default: Date.now()
@@ -18,9 +21,16 @@ const FundSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
+  baseCurrency: {
+    type: String,
+    enum: ['USD', 'BTC', 'ETH', 'EUR', 'MYR'],
+    default: 'USD'
+  },
   updatedDate: Date,
+  description: String,
+  // fund
+  manager: String,
   inceptionDate: Date,
-  baseCurrency: String,
   managementFee: Number,
   performanceFee: Number,
   minInvestment: Number,
@@ -41,8 +51,8 @@ function populate(next) {
   next();
 }
 
-FundSchema.pre("find", populate);
-FundSchema.pre("findOne", populate);
+AssetSchema.pre("find", populate);
+AssetSchema.pre("findOne", populate);
 
 module.exports =
-  mongoose.models.Fund || mongoose.model("Fund", FundSchema);
+  mongoose.models.Asset || mongoose.model("Asset", AssetSchema);

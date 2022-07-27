@@ -1,26 +1,30 @@
 const { gql } = require("apollo-server-lambda");
 
-const Fund = gql`
+const Asset = gql`
   extend type Query {
-    fundGet(_id: ID!): Fund
-    fundGetMany(page: Int, limit: Int): [Fund]
-    fundAutocomplete(ticker: String!): [Fund]
+    assetGet(_id: ID!): Asset
+    assetGetMany(page: Int, limit: Int): [Asset]
+    fundGetMany(page: Int, limit: Int): [Asset]
+    assetAutocomplete(ticker: String!, type: String): [Asset]
   }
   
   extend type Mutation {
-    fundCreate(obj: GraphQLJSON): Fund
-    fundUpdate(obj: GraphQLJSON): Fund
+    assetCreate(obj: GraphQLJSON): Asset
+    assetUpdate(obj: GraphQLJSON): Asset
   }
 
-  type Fund {
+  type Asset {
     _id: ID!
     ticker: String!
+    type: String
     name: String
-    description: String
-    manager: String
     createdDate: GraphQLDate
     createdBy: User
+    baseCurrency: String
     updatedDate: GraphQLDate
+    description: String
+    # fund
+    manager: String
     inceptionDate: GraphQLDate
     baseCurrency: String
     managementFee: Float
@@ -32,4 +36,4 @@ const Fund = gql`
   }
 `;
 
-module.exports = Fund;
+module.exports = Asset;
