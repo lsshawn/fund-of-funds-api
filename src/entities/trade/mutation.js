@@ -6,26 +6,64 @@ const {
 } = require("../../helpers/queries");
 
 module.exports.tradeCreate = async (parent, args, context, info) => {
-  // validate
-
   const trade = args.obj
   const type = trade.tradeType
-  const value = trade.price * trade.quantity
 
+  // TODO: validate
   // Buy: check if user has enough money
-  if (type === 'buy') {
-    // const customer = await Customer.findById(trade.customer).select('')
-  }
   // Sell: check if user has open position
 
   const tradeDocument = await createOne(Trade, args, context);
 
-  // side effects
-  if (type === 'deposit') {
+  // update position
+  const quantityWithSign = ['withdraw', 'sell'].includes(type) ? -trade.quantity : trade.quantity
+
+  await Position.findOneAndUpdate(
+    {
+      asset: tradeDocument.asset,
+      customer: tradeDocument.customer
+    },
+    {
+      $inc: {
+        "quantity": quantityWithSign,
+      },
+      $set: { updatedDate: Date.now() }
+    },
+    {
+      upsert: true,
+      new: true
+    }
+  )
+
+  // Buy/Sell needs to affect deposit
+
+  // reduce deposit if buy
+  if (['buy', 'sell'].includes(type)) {
+    // TODO: get from trade currency. We assume USD as base.
+    const USD_ID = '62e110befc01706680fb6a67'
+
+    const value = tradeDocument.quantity * tradeDocument.price
+    const depositChange = type === 'buy' ? -value : value
+
+    await Position.findOneAndUpdate(
+      {
+        asset: USD_ID,
+        customer: tradeDocument.customer
+      },
+      {
+        $inc: {
+          "quantity": depositChange,
+        },
+        $set: { updatedDate: Date.now() }
+      },
+      {
+        upsert: true,
+        new: true
+      }
+    )
   }
 
-  // Deposit: increase user deposit & position
-  // Withdraw: decrease user deposit & position
+
 
 };
 

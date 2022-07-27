@@ -4,7 +4,7 @@ const Asset = gql`
   extend type Query {
     assetGet(_id: ID!): Asset
     assetGetMany(page: Int, limit: Int): [Asset]
-    fundGetMany(page: Int, limit: Int): [Asset]
+    assetGetManyFunds(page: Int, limit: Int): [Asset]
     assetAutocomplete(ticker: String!, type: String): [Asset]
   }
   
@@ -23,10 +23,10 @@ const Asset = gql`
     baseCurrency: String
     updatedDate: GraphQLDate
     description: String
+    lastPrice: Float
     # fund
     manager: String
     inceptionDate: GraphQLDate
-    baseCurrency: String
     managementFee: Float
     performanceFee: Float
     minInvestment: Float

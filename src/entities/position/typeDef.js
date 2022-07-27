@@ -9,11 +9,10 @@ const Position = gql`
 
   type Position {
     _id: ID!
-    currency: String
     quantity: Float
     lastPrice: Float
     createdDate: GraphQLDate
-    lastUpdatedDate: GraphQLDate
+    updatedDate: GraphQLDate
     ticker: GraphQLJSON
     customer: GraphQLJSON
   }

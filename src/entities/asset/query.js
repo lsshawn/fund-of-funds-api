@@ -12,7 +12,7 @@ module.exports.assetGetMany = async (model, args, context) => {
   return await getMany(Asset, args, context)
 };
 
-module.exports.fundGetMany = async (model, args, context) => {
+module.exports.assetGetManyFunds = async (model, args, context) => {
   args.filters = {
     type: 'fund'
   }

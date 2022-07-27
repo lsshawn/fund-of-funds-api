@@ -28,6 +28,8 @@ const AssetSchema = new mongoose.Schema({
   },
   updatedDate: Date,
   description: String,
+  // TODO: update from price feed
+  lastPrice: Number,
   // fund
   manager: String,
   inceptionDate: Date,

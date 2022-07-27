@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.set("setDefaultsOnInsert", false);
+mongoose.set("setDefaultsOnInsert", true);
 
 let isConnected;
 

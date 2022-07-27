@@ -9,5 +9,6 @@ module.exports.tradeGet = async (parent, args, context, info) => {
 
 
 module.exports.tradeGetMany = async (model, args, context) => {
+  args.sort = { 'createdDate': -1 }
   return await getMany(Trade, args, context)
 };

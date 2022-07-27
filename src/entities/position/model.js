@@ -3,11 +3,15 @@ const Asset = require('../asset/model')
 const Customer = require('../customer/model')
 
 const PositionSchema = new mongoose.Schema({
-  currency: String,
   quantity: Number,
-  lastPrice: Number,
-  createdDate: Date,
-  lastUpdatedDate: Date,
+  createdDate: {
+    type: Date,
+    default: Date.now()
+  },
+  updatedDate: {
+    type: Date,
+    default: Date.now()
+  },
   asset: {
     type: mongoose.Schema.ObjectId,
     ref: "Asset",
@@ -31,7 +35,10 @@ function populate(next) {
     path: "asset",
     select: {
       _id: 1,
-      asset: 1,
+      ticker: 1,
+      type: 1,
+      currency: 1,
+      lastPrice: 1
     },
   });
 
@@ -44,7 +51,7 @@ PositionSchema.pre("find", populate);
 PositionSchema.pre("findOne", populate);
 
 PositionSchema.virtual('value').get(function() {
-  return this.price * this.quantity
+  return this.asset.price * this.quantity
 });
 
 module.exports =

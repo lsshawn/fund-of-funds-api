@@ -11,7 +11,6 @@ const TradeSchema = new mongoose.Schema({
   currency: String,
   quantity: Number,
   price: Number,
-  value: Number,
   asset: {
     type: mongoose.Schema.ObjectId,
     ref: "Asset",
@@ -41,14 +40,6 @@ function populate(next) {
   });
 
   this.populate({
-    path: "trade",
-    select: {
-      _id: 1,
-      asset: 1,
-    },
-  });
-
-  this.populate({
     path: "customer",
     select: {
       _id: 1,
@@ -60,7 +51,8 @@ function populate(next) {
     path: "asset",
     select: {
       _id: 1,
-      asset: 1,
+      ticker: 1,
+      type: 1
     },
   });
 
@@ -69,6 +61,10 @@ function populate(next) {
 
 TradeSchema.pre("find", populate);
 TradeSchema.pre("findOne", populate);
+
+TradeSchema.virtual('value').get(function() {
+  return this.price * this.quantity
+});
 
 module.exports =
   mongoose.models.Trade || mongoose.model("Trade", TradeSchema);
